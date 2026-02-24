@@ -66,5 +66,6 @@ CTRL + c para detenerlo
 Si queremos guardar ese trafico de red usaremos el comando
 $ airodump-ng wlan2mon -c 11 -w /tmp/[nombre].wpa
 
-
+ahora para entrar encontrar la contraseña a la fuerza usaremos el siguiente comando
+aircrack-ng /tmp/captura_wpa-03.cap -w /tmp/[diccionario_de_contraseña].txt
 
