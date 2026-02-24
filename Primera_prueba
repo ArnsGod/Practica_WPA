@@ -1,0 +1,70 @@
+#NOTA: Este repocitorio esta los paso a paso que se realizo para el estudio sobre bulnerabilidad de una red usando wlan en un entorno virtual de kali linux con fines educativos
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Primer paso en Kali es verificar los puerto de red con el comando
+$ ip a
+luego de verificar si existen o no los creamos con el comando 
+$ sudo modprobe mac80211_hwsim radios=[numero]  // en este punto el numero indica la cantidad de puertos wlan que queremos
+verificamos que las wlan se crearon con el comando
+$ ip a // con esto veremos como wlan0, wlan1, wlan2, etc. Sengun el numero que pusimos
+una ves creamos las wlan virtuales crearemos el AP virtual que a tomar la wlan0 con el siguiente comando
+$ sudo ip netns add [nombre] // el nombre que queramos a nuestra AP no es una en especifico puede ser cualquiera lo importante es acordarse de este
+una vez creado el AP tenemos que mover una de las wlan a este en este caso la wlan0
+$ iw dev // este comando nos ayudara a ver con que codigo esta nuestra wlan en algunos caso sale phy#0 como wlan0 pero en otros caso va de decendido osea puede ser phy#3, phy#4, etc.
+$ sudo iw phy phy[numero_wlan_visto_con_iw_dev] name [nombre_del_AP] //este comando mueve la wlan al AP
+$ sudo ip netns exec [nombre_del_AP] ip link // Este comando nos ayudara a ver si movimos con exitos la wlan0
+con esto ya comenzariamos con la configuracion del apwpa.conf, este punto usaremos el comando
+$ sudo nano apwpa.conf // dentro de este escribiremos lo siguiente
+Interface=wlan0
+driver=nl80211
+country_code=BO
+ssid=TestAp --> puede cambiarse por otro nombre si se desea
+channel=11
+hw_mode=b
+wpa=3
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP CCMP
+wpa_passphrase=holamundo --> puede cambiarse
+auth_algs=3
+beacon_int=100
+
+CTRL + X
+Y
+ENTER
+
+para que este configuraciones funciones entramos a nuestro AP
+$ sudo ip netns exec [nombre_AP] bash
+dentro levantamos el puerto
+$ ip link set wlan0 up // levantamos el puerto
+$ hostapd apwpa.conf // ejecutamos las configuraciones para la wlan0 y iniciamos la comunicacion
+
+En otra pastaña, realizaremos las configuraciones para la wlan1 en este caso el usuario usaremos otras configuraciones
+
+$sudo nano con_wpa.conf // este repocitorio tendra las configuraciones de nuestro usario
+dentro de este repocitorio tendremos esto:
+network={
+ ssid="[nombre_de_la_red]" --> este debe ser el mismo que en la configuracion del wlan0
+ key_mgmt=WPA-PSK
+ psk="[contraseña]" --> tiene que ser la misma que el wlan0
+}
+
+CTRL + X
+Y
+ENTRE
+
+Una vez guardado este vamos a conectar la wlan1 a wlan0 
+$ sudo wpa_supplicnat -B -i wlan1 -c con_wpa.conf // con este comando empezara la comunicacion, podemos apreciar en la pestaña donde realizamos la configuracion de la wlan0 se empzara a mover solo
+$ sudo airmon-ng check kill // este comando puestra los procesos y termina la comunicacion de la wlan1
+
+Para configurar la wlan2 como monitoreo que es la parte mas fundamental y ahi podemos sacar la vulnerabilidad usaremos el siguiente comando
+$ sudo su - //entramos como super usuario
+$ airmon-ng start wlan2 // con este comando convertimos la wlan2 en modo monitoreo
+$ ip a // podemos apreciar el cambio
+$ airodump-ng wlanmon // con esto emperaza la funcion de monitoreo
+CTRL + c para detenerlo
+Si queremos guardar ese trafico de red usaremos el comando
+$ airodump-ng wlan2mon -c 11 -w /tmp/[nombre].wpa
+
+
+
