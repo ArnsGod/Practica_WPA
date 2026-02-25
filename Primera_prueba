@@ -59,7 +59,7 @@ $ sudo wpa_supplicnat -B -i wlan1 -c con_wpa.conf // con este comando empezara l
 $ sudo airmon-ng check kill // este comando puestra los procesos y termina la comunicacion de la wlan1
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Para configurar la wlan2 como monitoreo que es la parte mas fundamental y ahi podemos sacar la vulnerabilidad usaremos el siguiente comando
+En otra pestaña configuraremos la wlan2 como monitoreo que es la parte mas fundamental y ahi podemos sacar la vulnerabilidad usaremos el siguiente comando
 $ sudo su - //entramos como super usuario
 $ airmon-ng start wlan2 // con este comando convertimos la wlan2 en modo monitoreo
 $ ip a // podemos apreciar el cambio
