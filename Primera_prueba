@@ -65,7 +65,7 @@ En otra pestaña configuraremos la wlan2 como monitoreo que es la parte mas fund
 $ sudo su - //entramos como super usuario
 $ airmon-ng start wlan2 // con este comando convertimos la wlan2 en modo monitoreo
 $ ip a // podemos apreciar el cambio
-$ airodump-ng wlanmon // con esto emperaza la funcion de monitoreo
+$ airodump-ng wlan2mon // con esto emperaza la funcion de monitoreo
 CTRL + c para detenerlo
 Si queremos guardar ese trafico de red usaremos el comando
 $ airodump-ng wlan2mon -c 11 -w /tmp/[nombre].wpa
