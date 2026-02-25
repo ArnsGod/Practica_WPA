@@ -12,7 +12,7 @@ una ves creamos las wlan virtuales crearemos el AP virtual que a tomar la wlan0 
 $ sudo ip netns add [nombre] // el nombre que queramos a nuestra AP no es una en especifico puede ser cualquiera lo importante es acordarse de este
 una vez creado el AP tenemos que mover una de las wlan a este en este caso la wlan0
 $ iw dev // este comando nos ayudara a ver con que codigo esta nuestra wlan en algunos caso sale phy#0 como wlan0 pero en otros caso va de decendido osea puede ser phy#3, phy#4, etc.
-$ sudo iw phy phy[numero_wlan_visto_con_iw_dev] name [nombre_del_AP] //este comando mueve la wlan al AP
+$ sudo iw phy phy[numero_wlan_visto_con_iw_dev] set netns name [nombre_del_AP] //este comando mueve la wlan al AP
 $ sudo ip netns exec [nombre_del_AP] ip link // Este comando nos ayudara a ver si movimos con exitos la wlan0
 con esto ya comenzariamos con la configuracion del apwpa.conf, este punto usaremos el comando
 $ sudo nano apwpa.conf // dentro de este escribiremos lo siguiente
