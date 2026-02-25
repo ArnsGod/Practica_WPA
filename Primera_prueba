@@ -1,5 +1,7 @@
 #NOTA: Este repocitorio esta los paso a paso que se realizo para el estudio sobre bulnerabilidad de una red usando wlan en un entorno virtual de kali linux con fines educativos
-
+#Nota: hay siertos comando que requieres un repocitorio extra pre-instalados para funcionar estos son:
+$ aircrack-ng (aptget install aircrack-ng)
+$ hostapd (apt-get install hostapd).
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Primer paso en Kali es verificar los puerto de red con el comando
