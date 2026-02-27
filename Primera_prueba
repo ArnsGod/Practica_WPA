@@ -18,7 +18,7 @@ $ sudo iw phy phy[numero_wlan_visto_con_iw_dev] set netns name [nombre_del_AP] /
 $ sudo ip netns exec [nombre_del_AP] ip link // Este comando nos ayudara a ver si movimos con exitos la wlan0
 con esto ya comenzariamos con la configuracion del apwpa.conf, este punto usaremos el comando
 $ sudo nano apwpa.conf // dentro de este escribiremos lo siguiente
-Interface=wlan0
+interface=wlan0
 driver=nl80211
 country_code=BO
 ssid=TestAp --> puede cambiarse por otro nombre si se desea
